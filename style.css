@@ -205,3 +205,54 @@ footer {
         padding: 65px 20px;
     }
 }
+
+/* Contact Form */
+
+#contactForm {
+    margin-top: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #f8fafc;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #0f172a;
+    color: #e2e8f0;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #38bdf8;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#contactForm .btn {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#formStatus {
+    margin-top: 15px;
+    font-weight: bold;
+}
