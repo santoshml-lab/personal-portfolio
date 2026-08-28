@@ -5,6 +5,7 @@ from supabase import create_client, Client
 import os
 
 
+
 app = FastAPI(title="Personal Portfolio API")
 
 
