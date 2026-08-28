@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
 
 app = FastAPI(title="Personal Portfolio API")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -12,12 +15,30 @@ app.add_middleware(
 )
 
 
+# =====================================================
+# Contact Request Model
+# =====================================================
+
+class ContactMessage(BaseModel):
+    name: str
+    email: str
+    message: str
+
+
+# =====================================================
+# Home Endpoint
+# =====================================================
+
 @app.get("/")
 def home():
     return {
         "message": "Personal Portfolio API is running 🚀"
     }
 
+
+# =====================================================
+# Projects Endpoint
+# =====================================================
 
 @app.get("/projects")
 def projects():
@@ -40,4 +61,21 @@ def projects():
                 "description": "Machine learning model for heart disease prediction"
             }
         ]
+    }
+
+
+# =====================================================
+# Contact Endpoint
+# =====================================================
+
+@app.post("/contact")
+def contact(message: ContactMessage):
+    return {
+        "success": True,
+        "message": "Your message has been received successfully 🚀",
+        "data": {
+            "name": message.name,
+            "email": message.email,
+            "message": message.message
+        }
     }
