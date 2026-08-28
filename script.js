@@ -69,6 +69,68 @@ async function loadProjects() {
 
 
 // =====================================================
+// Contact Form
+// =====================================================
+
+const contactForm = document.querySelector("#contactForm");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", async function (e) {
+
+        e.preventDefault();
+
+        const name = document.querySelector("#name").value.trim();
+        const email = document.querySelector("#email").value.trim();
+        const message = document.querySelector("#message").value.trim();
+        const formStatus = document.querySelector("#formStatus");
+
+        if (!name || !email || !message) {
+            formStatus.textContent = "Please fill in all fields.";
+            return;
+        }
+
+        formStatus.textContent = "Sending message...";
+
+        try {
+
+            const response = await fetch(`${API_BASE_URL}/contact`, {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.detail || "Failed to send message");
+            }
+
+            formStatus.textContent =
+                "Message sent successfully 🚀";
+
+            contactForm.reset();
+
+        } catch (error) {
+
+            console.error("Contact form error:", error);
+
+            formStatus.textContent =
+                "Unable to send message. Please try again.";
+        }
+    });
+}
+
+
+// =====================================================
 // Card Reveal Animation
 // =====================================================
 
@@ -81,9 +143,13 @@ function initializeCardAnimations() {
     const observer = new IntersectionObserver(
         entries => {
             entries.forEach(entry => {
+
                 if (entry.isIntersecting) {
+
                     entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
+
+                    entry.target.style.transform =
+                        "translateY(0)";
                 }
             });
         },
@@ -96,9 +162,11 @@ function initializeCardAnimations() {
 
         card.style.opacity = "0";
 
-        card.style.transform = "translateY(20px)";
+        card.style.transform =
+            "translateY(20px)";
 
-        card.style.transition = "all 0.6s ease";
+        card.style.transition =
+            "all 0.6s ease";
 
         observer.observe(card);
     });
